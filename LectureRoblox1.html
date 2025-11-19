@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Studio: Охотник за сокровищами | Лекция 1</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #fbbc04;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --success: #34a853;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --code-comment: #6a9955;
+            --code-keyword: #569cd6;
+            --code-string: #ce9178;
+            --code-number: #b5cea8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e, #311b92);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--light);
+            opacity: 0.9;
+            font-weight: 600;
+        }
+        
+        .lecture-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        .main-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            align-self: start;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+            line-height: 1.4;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .code-block .line-number {
+            display: inline-block;
+            width: 30px;
+            color: #6e7681;
+            text-align: right;
+            margin-right: 10px;
+            user-select: none;
+        }
+        
+        .code-comment {
+            color: var(--code-comment);
+            font-style: italic;
+        }
+        
+        .code-keyword {
+            color: var(--code-keyword);
+            font-weight: bold;
+        }
+        
+        .code-string {
+            color: var(--code-string);
+        }
+        
+        .code-number {
+            color: var(--code-number);
+        }
+        
+        .code-function {
+            color: #dcdcaa;
+        }
+        
+        .note {
+            background: rgba(251, 188, 4, 0.15);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip {
+            background: rgba(52, 168, 83, 0.15);
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #0d62d1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #e6a503;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--secondary);
+            width: 10%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .checklist {
+            list-style-type: none;
+        }
+        
+        .checklist li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .animation-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .coin {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #daa520);
+            border-radius: 50%;
+            animation: coin-spin 2s infinite linear;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        
+        @keyframes coin-spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .homework {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 2px dashed var(--secondary);
+        }
+        
+        .homework h3 {
+            color: var(--secondary);
+            margin-top: 0;
+        }
+        
+        .toggle-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .hidden-content {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .resources-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .resources-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .resources-list li:before {
+            content: "🔗";
+            position: absolute;
+            left: 0;
+        }
+        
+        .resources-list a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .resources-list a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        .bonus-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 2px solid var(--success);
+        }
+        
+        .bonus-section h3 {
+            color: var(--success);
+        }
+        
+        @media (max-width: 768px) {
+            .lecture-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Roblox Studio для начинающих</h1>
+            <p class="subtitle">Лекция 1: Создаём игру "Охотник за сокровищами"</p>
+            <div class="animation-container">
+                <div class="coin"></div>
+            </div>
+        </header>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div class="lecture-content">
+            <div class="main-content">
+                <div class="step">
+                    <h2>Что мы будем создавать?</h2>
+                    <p><strong>Сегодня мы создадим простую, но увлекательную игру, где игроки будут собирать монеты на острове.</strong> Это отличный способ познакомиться с основами Roblox Studio!</p>
+                    <p>Наша игра будет включать:</p>
+                    <ul class="checklist">
+                        <li>Игровую площадку (остров)</li>
+                        <li>Собираемые монеты</li>
+                        <li>Счётчик собранных монет</li>
+                        <li>Простой скрипт для взаимодействия</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h2>Шаг 1: Создание основы игры</h2>
+                    <p><strong>Откройте Roblox Studio и создайте новый проект, выбрав шаблон "Baseplate" (Базовая плита).</strong></p>
+                    
+                    <div class="note">
+                        <p><strong>Примечание:</strong> Базовая плита — это отправная точка для большинства игр в Roblox. Это плоская поверхность, на которой мы будем строить наш мир.</p>
+                    </div>
+                    
+                    <p><strong>Теперь переименуйте "Baseplate" в "Island" в окне Explorer (Проводник).</strong> Это поможет нам лучше организовать нашу игру.</p>
+                    
+                    <div class="tip">
+                        <p><strong>Совет:</strong> Всегда давайте понятные имена объектам в вашей игре. Когда проект станет больше, это сильно облегчит жизнь!</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h2>Шаг 2: Создание острова</h2>
+                    <p><strong>Давайте превратим нашу базовую плиту в красивый остров!</strong></p>
+                    
+                    <p>В окне Explorer найдите Part под названием "Baseplate" (теперь "Island") и измените его свойства в окне Properties (Свойства):</p>
+                    
+                    <ul class="checklist">
+                        <li>Size (Размер): 100, 10, 100</li>
+                        <li>Material (Материал): Grass (Трава)</li>
+                        <li>Color (Цвет): Зелёный (или любой другой по вашему вкусу!)</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <p><strong>Примечание:</strong> Размер в Roblox Studio измеряется в "studs" (студы). 1 студ примерно равен 1 дюйму (2.54 см) в реальном мире.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h2>Шаг 3: Создание монеты</h2>
+                    <p><strong>Теперь создадим монету, которую игроки будут собирать!</strong></p>
+                    
+                    <p>В меню Home (Главная) нажмите "Part" чтобы создать новую часть. Затем измените её свойства:</p>
+                    
+                    <ul class="checklist">
+                        <li>Название: "Coin"</li>
+                        <li>Shape (Форма): Cylinder (Цилиндр)</li>
+                        <li>Size (Размер): 4, 0.5, 4</li>
+                        <li>Material (Материал): Metal (Металл)</li>
+                        <li>Color (Цвет): Жёлтый</li>
+                        <li>Anchored (Закреплено): Отметьте галочкой</li>
+                    </ul>
+                    
+                    <div class="tip">
+                        <p><strong>Совет:</strong> Свойство "Anchored" (Закреплено) предотвращает падение объекта под действием гравитации. Для монет это важно — мы не хотим, чтобы они падали сквозь остров!</p>
+                    </div>
+                    
+                    <p><strong>Теперь скопируйте монету несколько раз (Ctrl+C, Ctrl+V) и разместите копии в разных местах острова.</strong></p>
+                </div>
+                
+                <div class="step">
+                    <h2>Шаг 4: Добавление скрипта для монеты</h2>
+                    <p><strong>Теперь сделаем так, чтобы монеты исчезали при касании и увеличивали счёт игрока!</strong></p>
+                    
+                    <p>Выберите одну из монет, щёлкните правой кнопкой мыши в окне Explorer и выберите "Insert Object" (Вставить объект) → "Script" (Скрипт).</p>
+                    
+                    <p>Замените содержимое скрипта следующим кодом:</p>
+                    
+                    <div class="code-block">
+<span class="line-number">1</span><span class="code-comment">-- Скрипт для монеты</span>
+<span class="line-number">2</span><span class="code-keyword">local</span> coin = script.Parent
+<span class="line-number">3</span>
+<span class="line-number">4</span><span class="code-keyword">local</span> <span class="code-function">function</span> onTouch(otherPart)
+<span class="line-number">5</span>    <span class="code-keyword">local</span> character = otherPart.Parent
+<span class="line-number">6</span>    <span class="code-keyword">local</span> humanoid = character:FindFirstChild(<span class="code-string">"Humanoid"</span>)
+<span class="line-number">7</span>    
+<span class="line-number">8</span>    <span class="code-keyword">if</span> humanoid <span class="code-keyword">then</span>
+<span class="line-number">9</span>        <span class="code-comment">-- Увеличиваем счётчик монет</span>
+<span class="line-number">10</span>        game.StarterGui:SetCore(<span class="code-string">"SendNotification"</span>, {
+<span class="line-number">11</span>            Title = <span class="code-string">"Монета собрана!"</span>;
+<span class="line-number">12</span>            Text = <span class="code-string">"Ты нашёл сокровище!"</span>;
+<span class="line-number">13</span>            Duration = <span class="code-number">2</span>;
+<span class="line-number">14</span>        })
+<span class="line-number">15</span>        
+<span class="line-number">16</span>        <span class="code-comment">-- Удаляем монету</span>
+<span class="line-number">17</span>        coin:Destroy()
+<span class="line-number">18</span>    <span class="code-keyword">end</span>
+<span class="line-number">19</span><span class="code-keyword">end</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>coin.Touched:Connect(onTouch)
+                    </div>
+                    
+                    <div class="note">
+                        <p><strong>Объяснение кода:</strong></p>
+                        <p>1. <code>local coin = script.Parent</code> - получаем ссылку на монету, к которой прикреплён скрипт</p>
+                        <p>2. Функция <code>onTouch</code> выполняется, когда что-то касается монеты</p>
+                        <p>3. Мы проверяем, что коснулся именно игрок (ищем компонент Humanoid)</p>
+                        <p>4. Показываем уведомление о собранной монете</p>
+                        <p>5. Удаляем монету с помощью <code>coin:Destroy()</code></p>
+                    </div>
+                    
+                    <p><strong>Теперь скопируйте этот скрипт и вставьте его в каждую монету на вашем острове.</strong></p>
+                </div>
+                
+                <div class="step">
+                    <h2>Шаг 5: Тестирование игры</h2>
+                    <p><strong>Нажмите кнопку "Play" (Воспроизведение) в Roblox Studio, чтобы протестировать игру!</strong></p>
+                    
+                    <p>Управление в тестовом режиме:</p>
+                    <ul class="checklist">
+                        <li>W, A, S, D - движение</li>
+                        <li>Пробел - прыжок</li>
+                        <li>Shift - бег</li>
+                    </ul>
+                    
+                    <p>Подойдите к монете и коснитесь её. Вы должны увидеть уведомление, а монета исчезнет!</p>
+                    
+                    <div class="tip">
+                        <p><strong>Совет:</strong> Если что-то не работает, проверьте:</p>
+                        <p>1. Все ли монеты имеют скрипт</p>
+                        <p>2. Правильно ли вы вставили код</p>
+                        <p>3. Установлено ли свойство "Anchored" для монет</p>
+                    </div>
+                </div>
+                
+                <div class="bonus-section">
+                    <h3>Бонус: Улучшенная версия скрипта</h3>
+                    <p>Для тех, кто справился с основным заданием, предлагаем улучшенную версию скрипта с дополнительными функциями:</p>
+                    
+                    <div class="code-block">
+<span class="line-number">1</span><span class="code-comment">-- Улучшенный скрипт для монеты с подсчётом очков</span>
+<span class="line-number">2</span><span class="code-keyword">local</span> coin = script.Parent
+<span class="line-number">3</span>
+<span class="line-number">4</span><span class="code-comment">-- Создаём значение для хранения счёта, если его ещё нет</span>
+<span class="line-number">5</span><span class="code-keyword">if</span> <span class="code-keyword">not</span> game:GetService(<span class="code-string">"ServerStorage"</span>):FindFirstChild(<span class="code-string">"PlayerCoins"</span>) <span class="code-keyword">then</span>
+<span class="line-number">6</span>    <span class="code-keyword">local</span> playerCoins = Instance.new(<span class="code-string">"IntValue"</span>)
+<span class="line-number">7</span>    playerCoins.Name = <span class="code-string">"PlayerCoins"</span>
+<span class="line-number">8</span>    playerCoins.Value = <span class="code-number">0</span>
+<span class="line-number">9</span>    playerCoins.Parent = game:GetService(<span class="code-string">"ServerStorage"</span>)
+<span class="line-number">10</span><span class="code-keyword">end</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span><span class="code-keyword">local</span> <span class="code-function">function</span> onTouch(otherPart)
+<span class="line-number">13</span>    <span class="code-keyword">local</span> character = otherPart.Parent
+<span class="line-number">14</span>    <span class="code-keyword">local</span> humanoid = character:FindFirstChild(<span class="code-string">"Humanoid"</span>)
+<span class="line-number">15</span>    
+<span class="line-number">16</span>    <span class="code-keyword">if</span> humanoid <span class="code-keyword">then</span>
+<span class="line-number">17</span>        <span class="code-comment">-- Увеличиваем счётчик монет</span>
+<span class="line-number">18</span>        <span class="code-keyword">local</span> playerCoins = game:GetService(<span class="code-string">"ServerStorage"</span>):FindFirstChild(<span class="code-string">"PlayerCoins"</span>)
+<span class="line-number">19</span>        playerCoins.Value = playerCoins.Value + <span class="code-number">1</span>
+<span class="line-number">20</span>        
+<span class="line-number">21</span>        <span class="code-comment">-- Показываем уведомление с текущим счётом</span>
+<span class="line-number">22</span>        game.StarterGui:SetCore(<span class="code-string">"SendNotification"</span>, {
+<span class="line-number">23</span>            Title = <span class="code-string">"Монета собрана!"</span>;
+<span class="line-number">24</span>            Text = <span class="code-string">"Твой счёт: "</span> .. playerCoins.Value;
+<span class="line-number">25</span>            Duration = <span class="code-number">2</span>;
+<span class="line-number">26</span>        })
+<span class="line-number">27</span>        
+<span class="line-number">28</span>        <span class="code-comment">-- Воспроизводим звук сбора монеты</span>
+<span class="line-number">29</span>        <span class="code-keyword">local</span> sound = Instance.new(<span class="code-string">"Sound"</span>)
+<span class="line-number">30</span>        sound.SoundId = <span class="code-string">"rbxassetid://357833518"</span> <span class="code-comment">-- ID звука монеты</span>
+<span class="line-number">31</span>        sound.Parent = game.Workspace
+<span class="line-number">32</span>        sound:Play()
+<span class="line-number">33</span>        
+<span class="line-number">34</span>        <span class="code-comment">-- Удаляем монету через 0.1 секунду, чтобы звук успел воспроизвестись</span>
+<span class="line-number">35</span>        wait(<span class="code-number">0.1</span>)
+<span class="line-number">36</span>        coin:Destroy()
+<span class="line-number">37</span>    <span class="code-keyword">end</span>
+<span class="line-number">38</span><span class="code-keyword">end</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>coin.Touched:Connect(onTouch)
+                    </div>
+                    
+                    <p>Этот скрипт добавляет подсчёт очков, отображение текущего счёта и звуковой эффект при сборе монеты!</p>
+                </div>
+                
+                <div class="homework">
+                    <h3>Домашнее задание</h3>
+                    <p><strong>Попробуйте самостоятельно улучшить игру, добавив следующие элементы:</strong></p>
+                    <ul class="checklist">
+                        <li>Создайте препятствия на острове (горы, деревья)</li>
+                        <li>Добавьте разные типы монет с разной стоимостью</li>
+                        <li>Создайте таймер, ограничивающий время сбора монет</li>
+                        <li>Добавьте телепорты для быстрого перемещения по острову</li>
+                    </ul>
+                    
+                    <button class="toggle-btn" onclick="toggleHomework()">Показать пример кода для домашнего задания</button>
+                    
+                    <div class="hidden-content" id="homework-code">
+                        <p>Вот пример кода для создания таймера в игре:</p>
+                        
+                        <div class="code-block">
+<span class="line-number">1</span><span class="code-comment">-- Скрипт для таймера игры</span>
+<span class="line-number">2</span><span class="code-keyword">local</span> timeLimit = <span class="code-number">60</span> <span class="code-comment">-- 60 секунд на игру</span>
+<span class="line-number">3</span><span class="code-keyword">local</span> remainingTime = timeLimit
+<span class="line-number">4</span>
+<span class="line-number">5</span><span class="code-comment">-- Создаём GUI для отображения времени</span>
+<span class="line-number">6</span><span class="code-keyword">local</span> screenGui = Instance.new(<span class="code-string">"ScreenGui"</span>)
+<span class="line-number">7</span><span class="code-keyword">local</span> timeText = Instance.new(<span class="code-string">"TextLabel"</span>)
+<span class="line-number">8</span>timeText.Size = UDim2.new(<span class="code-number">0</span>, <span class="code-number">200</span>, <span class="code-number">0</span>, <span class="code-number">50</span>)
+<span class="line-number">9</span>timeText.Position = UDim2.new(<span class="code-number">0.5</span>, <span class="code-number">-100</span>, <span class="code-number">0</span>, <span class="code-number">10</span>)
+<span class="line-number">10</span>timeText.BackgroundTransparency = <span class="code-number">1</span>
+<span class="line-number">11</span>timeText.Text = <span class="code-string">"Время: "</span> .. remainingTime
+<span class="line-number">12</span>timeText.TextColor3 = Color3.new(<span class="code-number">1</span>, <span class="code-number">1</span>, <span class="code-number">1</span>)
+<span class="line-number">13</span>timeText.TextScaled = <span class="code-keyword">true</span>
+<span class="line-number">14</span>timeText.Parent = screenGui
+<span class="line-number">15</span>screenGui.Parent = game.Players.LocalPlayer:WaitForChild(<span class="code-string">"PlayerGui"</span>)
+<span class="line-number">16</span>
+<span class="line-number">17</span><span class="code-comment">-- Функция обновления таймера</span>
+<span class="line-number">18</span><span class="code-keyword">while</span> remainingTime > <span class="code-number">0</span> <span class="code-keyword">do</span>
+<span class="line-number">19</span>    wait(<span class="code-number">1</span>)
+<span class="line-number">20</span>    remainingTime = remainingTime - <span class="code-number">1</span>
+<span class="line-number">21</span>    timeText.Text = <span class="code-string">"Время: "</span> .. remainingTime
+<span class="line-number">22</span>    
+<span class="line-number">23</span>    <span class="code-comment">-- Меняем цвет текста, когда время заканчивается</span>
+<span class="line-number">24</span>    <span class="code-keyword">if</span> remainingTime &lt;= <span class="code-number">10</span> <span class="code-keyword">then</span>
+<span class="line-number">25</span>        timeText.TextColor3 = Color3.new(<span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">0</span>)
+<span class="line-number">26</span>    <span class="code-keyword">end</span>
+<span class="line-number">27</span><span class="code-keyword">end</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span><span class="code-comment">-- Конец игры, когда время вышло</span>
+<span class="line-number">30</span>game.StarterGui:SetCore(<span class="code-string">"SendNotification"</span>, {
+<span class="line-number">31</span>    Title = <span class="code-string">"Время вышло!"</span>;
+<span class="line-number">32</span>    Text = <span class="code-string">"Игра окончена. Собрано монет: "</span> .. game.ServerStorage.PlayerCoins.Value;
+<span class="line-number">33</span>    Duration = <span class="code-number">5</span>;
+<span class="line-number">34</span>})
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h2>Полезные ресурсы для изучения</h2>
+                    <p>Для дальнейшего изучения Roblox Studio и языка Lua рекомендуем следующие ресурсы:</p>
+                    
+                    <ul class="resources-list">
+                        <li><a href="https://developer.roblox.com/" target="_blank">Официальная документация Roblox</a></li>
+                        <li><a href="https://create.roblox.com/docs/" target="_blank">Roblox Creator Documentation</a></li>
+                        <li><a href="https://www.lua.org/manual/5.1/" target="_blank">Документация по Lua 5.1</a></li>
+                        <li><a href="https://devforum.roblox.com/" target="_blank">Форум разработчиков Roblox</a></li>
+                        <li><a href="https://www.youtube.com/c/RobloxDeveloper" target="_blank">Официальный YouTube канал Roblox Developer</a></li>
+                        <li><a href="https://education.roblox.com/" target="_blank">Roblox Education - обучающие материалы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h2>Что дальше?</h2>
+                    <p><strong>Поздравляю! Вы создали свою первую игру в Roblox Studio!</strong> В следующей лекции мы:</p>
+                    
+                    <ul class="checklist">
+                        <li>Добавим счётчик монет</li>
+                        <li>Создадим более сложные механики</li>
+                        <li>Научимся добавлять звуковые эффекты</li>
+                        <li>Сделаем игру ещё интереснее!</li>
+                    </ul>
+                    
+                    <p>А пока поэкспериментируйте с вашей игрой: добавьте больше монет, измените форму острова или цвет монет!</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn" onclick="completeLecture()">Завершить лекцию</button>
+                    <button class="btn btn-secondary" onclick="resetProgress()">Начать заново</button>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <h3>Быстрые шаги</h3>
+                <ul class="checklist">
+                    <li>Создать проект из Baseplate</li>
+                    <li>Превратить Baseplate в остров</li>
+                    <li>Создать монеты</li>
+                    <li>Добавить скрипт к монетам</li>
+                    <li>Протестировать игру</li>
+                </ul>
+                
+                <h3>Термины</h3>
+                <p><strong>Part (Часть)</strong> - базовый строительный блок в Roblox</p>
+                <p><strong>Script (Скрипт)</strong> - код, который добавляет поведение объектам</p>
+                <p><strong>Explorer (Проводник)</strong> - показывает все объекты в вашей игре</p>
+                <p><strong>Properties (Свойства)</strong> - позволяет изменять параметры объектов</p>
+                
+                <h3>Задание</h3>
+                <p>Добавьте 10 монет на ваш остров и разместите их в интересных местах!</p>
+                
+                <div class="animation-container">
+                    <div class="coin" style="width: 40px; height: 40px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Roblox Studio для начинающих | Лекция 1: Охотник за сокровищами</p>
+            <p>© 2023 | Следующая лекция: Добавляем счётчик и звуковые эффекты!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Анимация прогресса
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            progress.style.width = scrollPercent + '%';
+        }
+        
+        window.addEventListener('scroll', updateProgress);
+        
+        // Функция завершения лекции
+        function completeLecture() {
+            alert('Поздравляем! Вы завершили первую лекцию! Теперь откройте Roblox Studio и создайте свою первую игру!');
+        }
+        
+        // Функция сброса прогресса
+        function resetProgress() {
+            document.getElementById('progress').style.width = '0%';
+            window.scrollTo(0, 0);
+        }
+        
+        // Функция показа/скрытия домашнего задания
+        function toggleHomework() {
+            const homeworkCode = document.getElementById('homework-code');
+            const button = document.querySelector('.toggle-btn');
+            
+            if (homeworkCode.style.display === 'block') {
+                homeworkCode.style.display = 'none';
+                button.textContent = 'Показать пример кода для домашнего задания';
+            } else {
+                homeworkCode.style.display = 'block';
+                button.textContent = 'Скрыть пример кода';
+            }
+        }
+        
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.step').forEach(step => {
+            step.style.opacity = '0';
+            observer.observe(step);
+        });
+    </script>
+</body>
+</html>
